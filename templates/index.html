@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Automation Tool</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<div class="nav">
+    <a href="/">Our Dataset</a>
+</div>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+            <select name="plot_choice">
+            <option value="SBAS">SB Administrative Services, LLC</option>
+            <option value="SBCM">Stony Brook Community Medical P.C.</option>
+            <option value="CIN">Stony Brook Clinical Network</option>
+        </select>
+        <select name="plot_choice">
+            <option value="flexible">Flexible</option>
+            <option value="marcum">Marcum</option>
+            <option value="amazon">Amazon</option>
+            <option value="light_path">Light Path</option>
+            <option value="power_it">Power IT</option>
+        </select>
+    <select name="plot_choice">
+        <option value="SBAS_Practice">SB Administrative Services, LLC</option>
+        <option value="AIPC">All Inclusive Primary Care</option>
+        <option value="Argen">Argen Medical</option>
+        <option value="CALM">Cardiovascular and Lifestyle Medicine</option>
+        <option value="Fein">Dr. Allen Fein</option>
+        <option value="Boglia">Dr. Boglia</option>
+        <option value="Schwartz">Dr. Irwin Schwartz</option>
+        <option value="EMPC">East Moriches Primary Care</option>
+        <option value="HALI">Heart Associates of Long Island</option>
+        <option value="Hamptons_OBGYN">Hamptons GYN/OB</option>
+        <option value="IF">Island Fertility</option>
+        <option value="LIAA">Long Island Allergy & Asthma</option>
+        <option value="LIDE">Long Island Diabetes & Endocrinology</option>
+        <option value="LIOS">Long Island Surgery & Sports Medicine</option>
+        <option value="EEHC">East End Hand Center</option>
+        <option value="NAD">NAD Medical Services of Peconic Landing</option>
+        <option value="Renal">Renal Consultants of Long Island</option>
+        <option value="LIPMC">Long Island Premier Medical Care</option>
+        <option value="MIPC">Mid Island Pediatrics (CALMA)</option>
+        <option value="NSMP">Nassau Suffolk Medical Practice (Bodoutchian)</option>
+        <option value="NCPMC">North Country Primary Medical Care</option>
+        <option value="NFO">North Fork Orthopedic & Sport Medicine</option>
+        <option value="NSC">North Suffolk Cardiology </option>
+        <option value="NSMC">North Suffolk Medical Care (Dhillon)</option>
+        <option value="NYPulm">NY Pulmonary Consultants</option>
+        <option value="Preferred_Womens_OBGYN">Preferred Women's OB/GYN Care, PC</option>
+        <option value="Sayvile_Peds">SB Pediatrics of Sayvile</option>
+        <option value="SH_Peds_Associates">SH Pediatric Associates</option>
+        <option value="SWH">Smithtown Women's Health</option>
+        <option value="Sound Neuroloy">Sound Neuroloy</option>
+        <option value="SouthBay_OBGYN">South Bay OB/GYN</option>
+        <option value="Southold_Family">Southold Family Medicine (Pachter)</option>
+        <option value="Southold_Internal">Southold Internal Medicine (Simon)</option>
+        <option value="SBEC">Stony Brook Endocrine Consultants</option>
+        <option value="SB_Extended Care">Stony Brook Extended Care</option>
+        <option value="Stony Brook OBGYN">Stony Brook OB/GYN</option>
+    </select>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+        <button type="submit">Generate Plot</button>
+    </form>
+    
+<hr>
+</body>
+</html>

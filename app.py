@@ -22,11 +22,13 @@ def upload_file():
         
         # Extract 'plot_choice' values
         plot_choice = request.form.getlist('plot_choice')
-        print(plot_choice)
+        keyword_dict = ocr.main() # This is where the magic happens
+        invoice_number = keyword_dict['Invoice Number']
+        invoice_date = keyword_dict['Invoice Date']
+        po_number = keyword_dict['PO Number']
+        item = keyword_dict['Item']
         
-        # Handle plot_choice values and file as needed here...
-        
-        return render_template('template.html')
+        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item)
     else:
         return render_template('index.html')
 

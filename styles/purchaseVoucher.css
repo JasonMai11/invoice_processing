@@ -1,0 +1,142 @@
+.practice { grid-area: practice; }
+.SBCM-PC { grid-area: SBCM-PC; }
+.SBAS-LLC { grid-area: SBAS-LLC; }
+.SBBV-LLC {grid-area: SBBV-LLC; }
+.SBCN-IPA-LLC {grid-area: SBCN-IPA-LLC; }
+
+.received-by { grid-area: revby; }
+.blank { grid-area: blank;}
+.blank1 { grid-area: blank1;}
+.blank2 { grid-area: blank2;}
+.blank3 { grid-area: blank3;}
+.blank4 { grid-area: blank4;}
+
+.reviewed-by { grid-area: recby; }
+
+.d1 { grid-area: d1; }
+.d2 { grid-area: d2; }
+
+
+.vendor-name { grid-area: vendor-name;}
+.contract { grid-area: contract;}
+.address { grid-area: address;}
+.suite { grid-area: suite;}
+.city { grid-area: city;}
+.phone { grid-area: phone;}
+.email { grid-area: email;}
+.website { grid-area: website;}
+
+
+.grid-container {
+  display: grid;
+  width: 98%;
+  grid-template-areas:
+    'practice blank blank blank SBCM-PC SBAS-LLC SBBV-LLC SBCN-IPA-LLC'
+    'recby blank1 blank1 blank1 d1 blank2 blank2 blank2'
+    'revby blank3 blank3 blank3 d2 blank4 blank4 blank4';
+  gap: 0px;
+  background-color: white;
+  padding: 10px;
+}
+
+.grid-container > div {
+    height: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+.vendor-info-container {
+    height: 8px;
+    background-color: gray;
+    width: 98%;
+    display: inline-block;
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.vendor-info {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+}
+
+.grid-container1 {
+    display: grid;
+    width: 98%;
+    grid-template-areas:
+      'vendor-name'
+      'contract'
+      'address'
+      'suite'
+      'city'
+      'phone'
+      'email'
+      'website';
+    gap: 0px;
+    background-color: white;
+    padding: 10px;
+}
+
+
+.v1 {
+    height: 18px;
+    border: 1px solid rgba(0, 0, 0, 1);
+    padding-top: 10px;
+    text-align: left;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+.g1 {
+    height: 10px;
+    padding-bottom: -10px;
+    padding-left: 10px;
+
+}
+
+
+
+.tax-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.tax-container {
+    background-color: gray;
+    width: 98%;
+    display: inline-block;
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.note-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.note-container {
+    display: inline-block;
+    border: 2px solid black;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}

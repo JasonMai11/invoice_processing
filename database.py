@@ -72,7 +72,7 @@ def insert_item_data(item_name,item_id):
     conn = sqlite3.connect('item.db')
     c = conn.cursor()
     c.execute("INSERT INTO item VALUES (?, ?)",
-            (item_name,item_id))
+            (item_id,item_name))
     conn.commit()
     conn.close()
 
@@ -92,24 +92,41 @@ def get_item_id(item_name):
     conn.close()
     return item_id
 
+
 def view_all_items():
+    return_dict = {}
     conn = sqlite3.connect('item.db')
-    conn.row_factory = sqlite3.Row
     c = conn.cursor()
-    c.execute("SELECT * FROM item")
+    c.execute("SELECT item_id, item_name FROM item")
     rows = c.fetchall()
+    for row in rows:
+        return_dict[row[0]] = row[1]
     conn.close()
-    return rows
+    return return_dict
 
 
-item_query_table()
+def delete_all_items():
+    conn = sqlite3.connect('item.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM item")
+    conn.commit()
+    conn.close()
 
-insert_item_data('VS56614911 7KW75A#BGJ|H','HP LaserJet Pro M283 M283fdw Wireless Laser Multifunction Printer')
 
-for i in view_all_items():
-    print(i['item_name'])
-    print(i['item_id'])
+def item_ids():
+    conn = sqlite3.connect('item.db')
+    c = conn.cursor()
+    c.execute("SELECT item_id FROM item")
+    item_ids = c.fetchall()
+    conn.close()
+    return item_ids
 
+def delete_item(item_id):
+    conn = sqlite3.connect('item.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM item WHERE item_id=?", (item_id,))
+    conn.commit()
+    conn.close()
 
 
 

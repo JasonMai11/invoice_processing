@@ -5,10 +5,115 @@
     <meta charset="UTF-8">
     <title>Invoice Automation Tool</title>
     <link rel="stylesheet" href="../styles/template.css">
+    <style>
+        
+        .SBAS-Practice {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .WP-Reference,
+        .Prepared-By,
+        .Reviewed-By {
+            margin-left: 10px;
+        }
+
+        .Voucher-Total{
+            display: flex;
+            justify-content: right;
+
+            margin-right: 60px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            column-gap: 10px;
+            background-color: gray;
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .grid-item {
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #ccc;
+        }
+
+        .white-background {
+            background-color: white;
+        }
+
+        .last-column {
+            grid-column: 5 / span 2;
+            background-color: #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .note-center{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .note-container {
+            display: inline-block;
+            border: 2px solid black;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .signature-text {
+            margin-left: 20%;
+            margin-bottom: 5px;
+        }
+
+        .signature-line {
+            width: 300px;
+            height: 1px;
+            margin-right: 28%;
+            margin-bottom: -15px;
+            background-color: black;
+        }
+
+        .date-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .date-text {
+            margin-bottom: 5px;
+            margin-left: -140%;
+        }
+
+        .date-line {
+            width: 80px;
+            height: 1px;
+            margin-bottom: -15px;
+            background-color: black;
+        }
+    </style>
 
 </head>
 
+
 <body>
+    <h1>Invoice Information</h1>
     <div class="SBAS-Practice">
         <b>
             Stony Brook Community Medical P.C. <br>
@@ -38,9 +143,9 @@
         <div class="grid-item">Amount</div>
         <div class="grid-item">Invoice Total</div>
 
-        <div class="grid-item white-background">06/30/23</div>
-        <div class="grid-item white-background">205426</div>
-        <div class="grid-item white-background">Services: Data Drop installation, Move Data Drop, Provide and Install 48 Port Patch Panel Siemon's 650025</div>
+        <div class="grid-item white-background">{{ invoice_date }}</div>
+        <div class="grid-item white-background">{{ invoice_number }}</div>
+        <div class="grid-item white-background">{{ item }}</div>
         <div class="grid-item white-background">650025</div>
         <div class="grid-item white-background">$2,057.36</div>
         <div class="grid-item white-background">-</div>
@@ -84,6 +189,11 @@
 
     <br>
     <br>
+
+    <p>Invoice Number: {{ invoice_number }}</p>
+    <p>Invoice Date: {{ invoice_date }}</p>
+    <p>PO Number: {{ po_number }}</p>
+    <p>Item: {{ item }}</p>
 
 </body>
 

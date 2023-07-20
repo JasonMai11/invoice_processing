@@ -27,8 +27,10 @@ def upload_file():
         invoice_date = keyword_dict['Invoice Date']
         po_number = keyword_dict['PO Number']
         item = keyword_dict['Item']
+        total = keyword_dict['Total']
+        price = keyword_dict['Price']
         
-        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item)
+        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price)
     else:
         return render_template('index.html')
 

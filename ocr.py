@@ -1,6 +1,8 @@
 from PyPDF2 import PdfReader
 import os 
 import database as db
+from re import sub
+from decimal import Decimal
 
 def extract_text_from_pdf(pdf_path):
     reader = PdfReader(pdf_path)
@@ -32,6 +34,7 @@ def flexible_invoice(text):
     database_dict = db.view_all_items()
     item_id = db.item_ids()
     temp_insert = ""
+    total = 0
     for line in text.split('\n'):
         if price_bool:
             for word in search_words:
@@ -46,17 +49,22 @@ def flexible_invoice(text):
                     visited.add(word)
             for id_ in item_id:
                 if id_[0] in line:
+                    if not return_dict.get("Item"):
+                        return_dict['Item'] = [database_dict[id_[0]]]
+                    else:
+                        return_dict['Item'].append(database_dict[id_[0]])
                     price_bool = False
-                    temp_insert = database_dict[id_[0]]
         elif "$" in line:
             start_index = line.find("$", line.find("$") + 1)
             end_index = line.find(" ", start_index)
-            amount = line[start_index + 1:end_index]
-            if not return_dict.get("Item"):
-                return_dict['Item'] = [(temp_insert,amount)]
+            amount = line[start_index:end_index]
+            if not return_dict.get("Price"):
+                return_dict['Price'] = [amount]
             else:
-                return_dict['Item'].append((temp_insert, amount))
+                return_dict['Price'].append(amount)
+            total += Decimal(sub(r'[^\d.]', '', amount))
             price_bool = True
+    return_dict['Total'] = total
     return return_dict
 
 def main():
@@ -64,6 +72,7 @@ def main():
     pdf_path = './invoice/' + invoice_name
     text = extract_text_from_pdf(pdf_path)
     keyword_dict = flexible_invoice(text)
+    print(keyword_dict)
     return keyword_dict
 
 

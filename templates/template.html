@@ -147,7 +147,7 @@
         <div class="grid-item white-background">{{ invoice_number }}</div>
         <div class="grid-item white-background">{{ item }}</div>
         <div class="grid-item white-background">650025</div>
-        <div class="grid-item white-background">$2,057.36</div>
+        <div class="grid-item white-background">{{ price }}</div>
         <div class="grid-item white-background">-</div>
 
         <div class="grid-item white-background"></div>
@@ -189,6 +189,11 @@
 
     <br>
     <br>
+
+{% for p in price %}
+    <p>Price: {{ p }}</p>
+{% endfor %}
+
 
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>

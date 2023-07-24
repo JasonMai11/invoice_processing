@@ -128,6 +128,3 @@ def delete_item(item_id):
     conn.commit()
     conn.close()
 
-
-
-

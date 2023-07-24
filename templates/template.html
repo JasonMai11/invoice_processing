@@ -131,7 +131,7 @@
     <br>
     <hr>
     <br>
-    <div class="Voucher-Total"><b>Voucher Total: <u>$   2,057.36 </u></b> </div>
+    <div class="Voucher-Total"><b>Voucher Total: <u>$  {{total}} </u></b> </div>
 
     <br>
 
@@ -146,8 +146,13 @@
         <div class="grid-item white-background">{{ invoice_date }}</div>
         <div class="grid-item white-background">{{ invoice_number }}</div>
         <div class="grid-item white-background">{{ item }}</div>
+<<<<<<< Updated upstream
         <div class="grid-item white-background">650025</div>
         <div class="grid-item white-background">$2,057.36</div>
+=======
+        <div class="grid-item white-background">-----</div>
+        <div class="grid-item white-background">{{ price }}</div>
+>>>>>>> Stashed changes
         <div class="grid-item white-background">-</div>
 
         <div class="grid-item white-background"></div>
@@ -155,15 +160,15 @@
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
-        <div class="grid-item white-background">$ 2,057.36</div>
+        <div class="grid-item white-background">$ {{ total }}</div>
 
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
         <div class="grid-item last-column">
-            <span>$ 2,057.36</span>
-            <span>$ 2,057.36</span>
+            <span>$ {{total}} </span>
+            <span>$ {{total}} </span>
         </div>
     </div>
 
@@ -190,10 +195,19 @@
     <br>
     <br>
 
+<<<<<<< Updated upstream
+=======
+{% for p in price %}
+    <p>Price: {{  p  }}</p>
+{% endfor %}
+
+
+>>>>>>> Stashed changes
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>
     <p>PO Number: {{ po_number }}</p>
     <p>Item: {{ item }}</p>
+    <p>Total: {{ total }}</p>
 
 </body>
 

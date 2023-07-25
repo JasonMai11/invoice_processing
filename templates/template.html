@@ -143,12 +143,15 @@
         <div class="grid-item">Amount</div>
         <div class="grid-item">Invoice Total</div>
 
+        {% for p, i in zip(price, item) %}
         <div class="grid-item white-background">{{ invoice_date }}</div>
         <div class="grid-item white-background">{{ invoice_number }}</div>
-        <div class="grid-item white-background">{{ item }}</div>
+        <div class="grid-item white-background">{{ i }}</div>
         <div class="grid-item white-background">-----</div>
-        <div class="grid-item white-background">{{ price }}</div>
+        <div class="grid-item white-background">{{ p }}</div>
         <div class="grid-item white-background">-</div>
+        {% endfor %}
+    
 
         <div class="grid-item white-background"></div>
         <div class="grid-item white-background"></div>
@@ -190,13 +193,10 @@
     <br>
     <br>
 
-{% for p in price %}
-    <p>Price: {{  p  }}</p>
-{% endfor %}
-
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>
     <p>PO Number: {{ po_number }}</p>
+    <p>Price: {{  price  }}</p>
     <p>Item: {{ item }}</p>
     <p>Total: {{ total }}</p>
 

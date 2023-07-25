@@ -32,7 +32,7 @@ def upload_file():
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)
         
-        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price)
+        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, zip=zip)
     else:
         return render_template('index.html')
 

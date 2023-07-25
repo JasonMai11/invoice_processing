@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Automation Tool</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <form action="/admin" method="POST" enctype="multipart/form-data">
+        <input type="text" name="pname" placeholder="Product Name">
+        <input type="text" name="pid" placeholder="Product Id">
+        <input type="text" name="glcode" placeholder="GL Code">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<table>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Id</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.pname }}</td>
+        <td>{{ item.pid }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</html>

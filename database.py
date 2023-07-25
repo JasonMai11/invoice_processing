@@ -93,6 +93,20 @@ def get_item_id(item_name):
     return item_id
 
 
+def get_item_data():
+    conn = sqlite3.connect('item.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM item")
+    rows = c.fetchall()
+    conn.close()
+    returnList = [] 
+    for row in rows:
+        temp = {}
+        temp['pid'] = row[0]
+        temp['pname'] = row[1]
+        returnList.append(temp)
+    return returnList
+
 def view_all_items():
     return_dict = {}
     conn = sqlite3.connect('item.db')
@@ -130,7 +144,9 @@ def delete_item(item_id):
 
 # insert_item_data("HP LaserJet Pro 3001dw Mono Laser Printer", "VS63941852 3G650F#BGJ|HP")
 # insert_item_data("HP LaserJet Enterprise M455dn Desktop Laser Printer", "VS59066036 3PZ95A#201|HP")
-print(view_all_items())
+# print(view_all_items())
+
+print(get_item_data())
 
 #HP LaserJet Pro 3001dw Mono Laser Printer : VS63941852 3G650F#BGJ|HP
 #HP LaserJet Enterprise M455dn Desktop Laser Printer : VS59066036 3PZ95A#201|HP

@@ -128,3 +128,9 @@ def delete_item(item_id):
     conn.commit()
     conn.close()
 
+# insert_item_data("HP LaserJet Pro 3001dw Mono Laser Printer", "VS63941852 3G650F#BGJ|HP")
+# insert_item_data("HP LaserJet Enterprise M455dn Desktop Laser Printer", "VS59066036 3PZ95A#201|HP")
+print(view_all_items())
+
+#HP LaserJet Pro 3001dw Mono Laser Printer : VS63941852 3G650F#BGJ|HP
+#HP LaserJet Enterprise M455dn Desktop Laser Printer : VS59066036 3PZ95A#201|HP

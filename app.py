@@ -29,10 +29,27 @@ def upload_file():
         item = keyword_dict['Item']
         total = keyword_dict['Total']
         price = keyword_dict['Price']
+        #move file from invoice folder to archive folder
+        os.rename('./invoice/' + file.filename, './archive/' + file.filename)
         
         return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price)
     else:
         return render_template('index.html')
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    if request.method == 'POST':
+        # extract file from form data
+        file = request.files['fileToUpload']
+        if file:
+            # Save the file
+            file.save(os.path.join('./invoice', file.filename))
+        
+        # Extract 'plot_choice' values
+        plot_choice = request.form.getlist('plot_choice')
+        keyword_dict = ocr.main()
+
+    else:
+        return render_template('admin.html')
 
 

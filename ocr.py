@@ -3,7 +3,7 @@ import os
 import database as db
 from re import sub
 from decimal import Decimal
-import fitz
+
 
 def extract_text_from_pdf(pdf_path):
     reader = PdfReader(pdf_path)

@@ -105,6 +105,7 @@ def get_item_data():
         temp = {}
         temp['pid'] = row[0]
         temp['pname'] = row[1]
+        temp['glcode'] = row[2]
         returnList.append(temp)
     return returnList
 

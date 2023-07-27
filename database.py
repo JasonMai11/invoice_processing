@@ -69,7 +69,7 @@ def item_query_table():
     conn.commit()
     conn.close()
 
-def insert_item_data(item_name,item_id,glcode ):
+def insert_item_data(item_name,item_id,glcode):
     conn = sqlite3.connect('item.db')
     c = conn.cursor()
     c.execute("INSERT INTO item VALUES (?, ?, ?)",
@@ -105,7 +105,6 @@ def get_item_data():
         temp = {}
         temp['pid'] = row[0]
         temp['pname'] = row[1]
-        temp['glcode'] = row[2]
         returnList.append(temp)
     return returnList
 
@@ -116,10 +115,12 @@ def view_all_items():
     c.execute("SELECT * FROM item")
     rows = c.fetchall()
     for row in rows:
-        return_dict[row[0]] = row[1]
+        # row[0] = item_id (key)
+        # row[1] = item_name (first value in tuple)
+        # row[2] = gl_code (second value in tuple)
+        return_dict[row[0]] = (row[1],row[2])
     conn.close()
     return return_dict
-
 
 def delete_all_items():
     conn = sqlite3.connect('item.db')
@@ -144,11 +145,13 @@ def delete_item(item_id):
     conn.commit()
     conn.close()
 
-# insert_item_data("HP LaserJet Pro 3001dw Mono Laser Printer", "VS63941852 3G650F#BGJ|HP")
-# insert_item_data("HP LaserJet Enterprise M455dn Desktop Laser Printer", "VS59066036 3PZ95A#201|HP")
-# print(view_all_items())
+# insert_item_data("HP LaserJet Pro 3001dw Mono Laser Printer", "VS63941852 3G650F#BGJ|HP", "650015")
+# insert_item_data("HP LaserJet Enterprise M455dn Desktop Laser Printer", "VS59066036 3PZ95A#201|HP", "650015")
+# insert_item_data("HP LaserJet Pro M283 M283fdw Wireless Laser Multifunction Printer", "VS56614911 7KW75A#BGJ|HP", "650015")
 
-print(get_item_data())
+print(view_all_items())
+
+
 
 #HP LaserJet Pro 3001dw Mono Laser Printer : VS63941852 3G650F#BGJ|HP
 #HP LaserJet Enterprise M455dn Desktop Laser Printer : VS59066036 3PZ95A#201|HP

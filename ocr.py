@@ -50,9 +50,9 @@ def flexible_invoice(text):
             for id_ in item_id:
                 if id_[0] in line:
                     if not return_dict.get("Item"):
-                        return_dict['Item'] = [database_dict[id_[0]]]
+                        return_dict['Item'] = [database_dict[id_[0]][0]]
                     else:
-                        return_dict['Item'].append(database_dict[id_[0]])
+                        return_dict['Item'].append(database_dict[id_[0]][0])
                     price_bool = False
         elif "$" in line:
             start_index = line.find("$", line.find("$") + 1)

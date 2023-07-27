@@ -59,8 +59,10 @@ def flexible_invoice(text):
                 if id_[0] in line:
                     if not return_dict.get("Item"):
                         return_dict['Item'] = [database_dict[id_[0]][0]]
+                        return_dict['GL'] = [database_dict[id_[0]][1]]
                     else:
                         return_dict['Item'].append(database_dict[id_[0]][0])
+                        return_dict['GL'].append(database_dict[id_[0]][1])
                     price_bool = False
         elif "$" in line:
             start_index = line.find("$", line.find("$") + 1)
@@ -80,6 +82,7 @@ def main():
     pdf_path = './invoice/' + invoice_name
     text = extract_text_from_pdf(pdf_path)
     keyword_dict = flexible_invoice(text)
+    print(keyword_dict)
     return keyword_dict
 
 

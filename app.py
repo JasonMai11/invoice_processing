@@ -30,10 +30,11 @@ def upload_file():
         item = keyword_dict['Item']
         total = keyword_dict['Total']
         price = keyword_dict['Price']
+        gl = keyword_dict['GL']
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)
 
-        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, zip=zip)
+        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, gl=gl, zip=zip)
     else:
         return render_template('index.html')
 

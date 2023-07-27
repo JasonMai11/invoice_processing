@@ -3,6 +3,7 @@ import os
 import database as db
 from re import sub
 from decimal import Decimal
+import fitz
 
 def extract_text_from_pdf(pdf_path):
     reader = PdfReader(pdf_path)
@@ -12,6 +13,13 @@ def extract_text_from_pdf(pdf_path):
         page = reader.pages[page_number]
         text += page.extract_text()
     return text
+
+# def extract_text_from_pdf(pdf_path):
+#     doc = fitz.open(pdf_path)
+#     text = ''
+#     for page in doc:
+#         text += page.getText()
+#     return text
 
 def extract_invoice_number(text):
     for line in text.split('\n'):
@@ -68,11 +76,10 @@ def flexible_invoice(text):
     return return_dict
 
 def main():
-    invoice_name = os.listdir('./invoice')[0]
+    invoice_name = os.listdir('./invoice')[-1]
     pdf_path = './invoice/' + invoice_name
     text = extract_text_from_pdf(pdf_path)
     keyword_dict = flexible_invoice(text)
-    print(keyword_dict)
     return keyword_dict
 
 

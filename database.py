@@ -149,7 +149,6 @@ def delete_item(item_id):
 # insert_item_data("HP LaserJet Enterprise M455dn Desktop Laser Printer", "VS59066036 3PZ95A#201|HP", "650015")
 # insert_item_data("HP LaserJet Pro M283 M283fdw Wireless Laser Multifunction Printer", "VS56614911 7KW75A#BGJ|HP", "650015")
 
-print(view_all_items())
 
 
 

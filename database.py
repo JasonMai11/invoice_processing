@@ -63,16 +63,17 @@ def item_query_table():
     c = conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS item (
                 item_id text PRIMARY KEY,
-                item_name text
+                item_name text,
+                gl_code NUMBER
                 )""")
     conn.commit()
     conn.close()
 
-def insert_item_data(item_name,item_id):
+def insert_item_data(item_name,item_id,glcode ):
     conn = sqlite3.connect('item.db')
     c = conn.cursor()
-    c.execute("INSERT INTO item VALUES (?, ?)",
-            (item_id,item_name))
+    c.execute("INSERT INTO item VALUES (?, ?, ?)",
+            (item_id, item_name, glcode))
     conn.commit()
     conn.close()
 
@@ -104,6 +105,7 @@ def get_item_data():
         temp = {}
         temp['pid'] = row[0]
         temp['pname'] = row[1]
+        temp['glcode'] = row[2]
         returnList.append(temp)
     return returnList
 
@@ -111,7 +113,7 @@ def view_all_items():
     return_dict = {}
     conn = sqlite3.connect('item.db')
     c = conn.cursor()
-    c.execute("SELECT item_id, item_name FROM item")
+    c.execute("SELECT * FROM item")
     rows = c.fetchall()
     for row in rows:
         return_dict[row[0]] = row[1]

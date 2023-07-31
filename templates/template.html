@@ -122,7 +122,17 @@
         </b>
         <div>
             <div class="WP-Reference"><b>W/P Ref</b> 7/7/2023</div>
-            <div class="Prepared-By">Prepared by: <b>Rob Toy</b></div>
+
+            <div class="Prepared-By">Prepared by: 
+                <b>
+                {% if preparer %}
+                {{ preparer }}
+                {% else %}
+                    N/A
+                {% endif %}
+                </b>
+            </div>
+            
             <div class="Reviewed-By">Reviewed by:</div>
         
         </div>
@@ -143,9 +153,10 @@
         <div class="grid-item">Amount</div>
         <div class="grid-item">Invoice Total</div>
 
-        {% for p, i, g in zip(price, item, gl) %}
-        <div class="grid-item white-background">{{ invoice_date }}</div>
-        <div class="grid-item white-background">{{ invoice_number }}</div>
+
+        {% for id, in, p, i, g in zip(invoice_date, invoice_number, price, item, gl) %}
+        <div class="grid-item white-background">{{ id }}</div>
+        <div class="grid-item white-background">{{ in }}</div>
         <div class="grid-item white-background">{{ i }}</div>
         <div class="grid-item white-background">{{ g }}</div>
         <div class="grid-item white-background">{{ p }}</div>
@@ -174,7 +185,7 @@
 
     <div class="note-center">
         <div class="note-container">
-            Note: Rocky Point Sound Neurology - Changes
+            Note: {{ note }}
         </div>
     </div>
     <br>
@@ -192,6 +203,13 @@
 
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
 
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>

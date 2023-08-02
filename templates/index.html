@@ -4,22 +4,39 @@
     <meta charset="UTF-8">
     <title>Invoice Automation Tool</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .admin-dashboard{
+            border: 1px solid black;
+            padding: 10px;
+            width: 120px;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <div class="nav">
-    <a href="/admin">Admin Dashboard</a>
+    <div class="admin-dashboard">
+        <a href="/admin">Admin Dashboard</a>
+    </div>
 </div>
+<br>
+<hr>
 <body>
+    <h1>Automation Form</h1>
     <form action="/upload" method="POST" enctype="multipart/form-data">
 
-        <select name="plot_choice">
-            <option value="SBAS">SB Administrative Services, LLC</option>
-            <option value="SBCM">Stony Brook Community Medical P.C.</option>
-            <option value="CIN">Stony Brook Clinical Network</option>
+        <label for="preparer">Preparer:</label>
+        <input type="text" id="preparer" name="preparer">
+        <br>
+        <br>
+
+        <select name="plot_choice1">
+            <option value="SB Administrative Services, LLC">SB Administrative Services, LLC</option>
+            <option value="Stony Brook Community Medical P.C.">Stony Brook Community Medical P.C.</option>
+            <option value="Stony Brook Clinical Network">Stony Brook Clinical Network</option>
         </select>
 
-        <select name="plot_choice">
+        <select name="plot_choice2">
             <option value="flexible">Flexible</option>
             <option value="marcum">Marcum</option>
             <option value="amazon">Amazon</option>
@@ -27,10 +44,10 @@
             <option value="power_it">Power IT</option>
         </select>
 
-        <select name="plot_choice">
-            <option value="SBAS_Practice">SB Administrative Services, LLC</option>
-            <option value="AIPC">All Inclusive Primary Care</option>
-            <option value="Argen">Argen Medical</option>
+        <select name="plot_choice3">
+            <option value="SB Administrative Services, LLC">SB Administrative Services, LLC</option>
+            <option value="All Inclusive Primary Care">All Inclusive Primary Care</option>
+            <option value="Argen Medical">Argen Medical</option>
             <option value="CALM">Cardiovascular and Lifestyle Medicine</option>
             <option value="Fein">Dr. Allen Fein</option>
             <option value="Boglia">Dr. Boglia</option>
@@ -74,6 +91,9 @@
         <button type="submit">Generate Plot</button>
     </form>
     
+
+
+    <br>
 <hr>
 
 
@@ -81,12 +101,12 @@
 
 
 
-<h1>Develop a Manual Form</h1>
+<h1>Manual Form</h1>
 <form action="/manualUpload" method="POST" enctype="multipart/form-data">
 
-    <br>
     <label for="preparer">Preparer:</label>
     <input type="text" id="preparer" name="preparer">
+    <br>
     <br>
 
 
@@ -105,6 +125,8 @@
     <button type="button" id="addRow">Add Row</button>
 
     <br>
+    <br>
+
     <label for="note">Note:</label>
     <input type="text" id="note" name="note">
 
@@ -112,29 +134,29 @@
 
 </form>
 
-<script>
-var rowNum = 1;
+    <script>
+        var rowNum = 1;
 
-$(document).ready(function(){
-  $("#addRow").click(function(){
-    var html = '';
-    html += '<div class="row">';
-    html += '<input type="date" name="row['+ rowNum +'][date]">';
-    html += '<input type="text" name="row['+ rowNum +'][number]" placeholder="Enter Number">';
-    html += '<input type="text" name="row['+ rowNum +'][memo]" placeholder="Enter Memo">';
-    html += '<input type="text" name="row['+ rowNum +'][glCode]" placeholder="Enter GL Code">';
-    html += '<input type="number" step="0.01" name="row['+ rowNum +'][priceAmount]" placeholder="Enter Price Amount">';
-    html += '<button class="deleteRow" type="button">Delete</button>';
-    html += '</div>';
+        $(document).ready(function(){
+        $("#addRow").click(function(){
+            var html = '';
+            html += '<div class="row">';
+            html += '<input type="date" name="row['+ rowNum +'][date]">';
+            html += '<input type="text" name="row['+ rowNum +'][number]" placeholder="Enter Number">';
+            html += '<input type="text" name="row['+ rowNum +'][memo]" placeholder="Enter Memo">';
+            html += '<input type="text" name="row['+ rowNum +'][glCode]" placeholder="Enter GL Code">';
+            html += '<input type="number" step="0.01" name="row['+ rowNum +'][priceAmount]" placeholder="Enter Price Amount">';
+            html += '<button class="deleteRow" type="button">Delete</button>';
+            html += '</div>';
 
-    $('#invoiceForm').append(html);
-    rowNum++;
-  });
+            $('#invoiceForm').append(html);
+            rowNum++;
+        });
 
-  $(document).on('click', '.deleteRow', function(){
-    $(this).closest('.row').remove();
-  });
-});
-</script>
+        $(document).on('click', '.deleteRow', function(){
+            $(this).closest('.row').remove();
+        });
+        });
+    </script>
 </body>
 </html>

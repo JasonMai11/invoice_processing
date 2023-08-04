@@ -28,25 +28,35 @@ def upload_file():
         note = request.form.get('note')
         preparer = request.form.get('preparer')
         print(note)
+        invoice_number, invoice_date, po_number, item, price, gl = [], [], [], [], [], []
+        total = 0
 
-        # extract file from form data
-        file = request.files['fileToUpload']
-        if file:
-            # Save the file
-            file.save(os.path.join('./invoice', file.filename))
-        
-        keyword_dict = ocr.main() # This is where the magic happens
-        invoice_number = [keyword_dict['Invoice Number']]
-        invoice_date = [keyword_dict['Invoice Date']]
-        po_number = keyword_dict['PO Number']
-        item = keyword_dict['Item']
-        total = keyword_dict['Total']
-        price = keyword_dict['Price']
-        gl = keyword_dict['GL']
 
-        while len(invoice_date) != len(item):
-            invoice_date.append('')
-            invoice_number.append('')
+        file = request.files['fileToUpload[]']
+        # extract files from form data
+        files = request.files.getlist('fileToUpload[]')
+        for file in files:
+            if file and file.filename != '':
+                # Save the file
+                file.save(os.path.join('./invoice', file.filename))
+                keyword_dict = ocr.main() # This is where the magic happens
+                invoice_number = invoice_number + [keyword_dict['Invoice Number']]
+                invoice_date = invoice_date + [keyword_dict['Invoice Date']]
+                po_number = po_number + [keyword_dict['PO Number']]
+                item = item + keyword_dict['Item']
+                total += (keyword_dict['Total'])
+                price = price + keyword_dict['Price']
+                gl = gl + keyword_dict['GL']
+                print(invoice_number, len(invoice_number))
+                print(item, len(item))
+
+                while len(invoice_date) != len(item):
+
+                    invoice_date.append('')
+                    invoice_number.append('')
+
+
+
 
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)

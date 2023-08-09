@@ -23,7 +23,7 @@
 <hr>
 <body>
     <h1>Automation Form</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
+    <form id="autoForm" action="/upload" method="POST" enctype="multipart/form-data">
 
         <label for="preparer">Preparer:</label>
         <input type="text" id="preparer" name="preparer">
@@ -48,47 +48,46 @@
             <option value="SB Administrative Services, LLC">SB Administrative Services, LLC</option>
             <option value="All Inclusive Primary Care">All Inclusive Primary Care</option>
             <option value="Argen Medical">Argen Medical</option>
-            <option value="CALM">Cardiovascular and Lifestyle Medicine</option>
-            <option value="Fein">Dr. Allen Fein</option>
-            <option value="Boglia">Dr. Boglia</option>
-            <option value="Schwartz">Dr. Irwin Schwartz</option>
-            <option value="EMPC">East Moriches Primary Care</option>
-            <option value="HALI">Heart Associates of Long Island</option>
-            <option value="Hamptons_OBGYN">Hamptons GYN/OB</option>
-            <option value="IF">Island Fertility</option>
-            <option value="LIAA">Long Island Allergy & Asthma</option>
-            <option value="LIDE">Long Island Diabetes & Endocrinology</option>
-            <option value="LIOS">Long Island Surgery & Sports Medicine</option>
-            <option value="EEHC">East End Hand Center</option>
-            <option value="NAD">NAD Medical Services of Peconic Landing</option>
-            <option value="Renal">Renal Consultants of Long Island</option>
-            <option value="LIPMC">Long Island Premier Medical Care</option>
-            <option value="MIPC">Mid Island Pediatrics (CALMA)</option>
-            <option value="NSMP">Nassau Suffolk Medical Practice (Bodoutchian)</option>
-            <option value="NCPMC">North Country Primary Medical Care</option>
-            <option value="NFO">North Fork Orthopedic & Sport Medicine</option>
-            <option value="NSC">North Suffolk Cardiology </option>
-            <option value="NSMC">North Suffolk Medical Care (Dhillon)</option>
-            <option value="NYPulm">NY Pulmonary Consultants</option>
-            <option value="Preferred_Womens_OBGYN">Preferred Women's OB/GYN Care, PC</option>
-            <option value="Sayvile_Peds">SB Pediatrics of Sayvile</option>
-            <option value="SH_Peds_Associates">SH Pediatric Associates</option>
-            <option value="SWH">Smithtown Women's Health</option>
+            <option value="Cardiovascular and Lifestyle Medicine">Cardiovascular and Lifestyle Medicine</option>
+            <option value="Dr. Allen Fein">Dr. Allen Fein</option>
+            <option value="Dr. Boglia">Dr. Boglia</option>
+            <option value="Dr. Irwin Schwartz">Dr. Irwin Schwartz</option>
+            <option value="East Moriches Primary Care">East Moriches Primary Care</option>
+            <option value="Heart Associates of Long Island">Heart Associates of Long Island</option>
+            <option value="Hamptons GYN/OB">Hamptons GYN/OB</option>
+            <option value="Island Fertility">Island Fertility</option>
+            <option value="Long Island Allergy & Asthma">Long Island Allergy & Asthma</option>
+            <option value="Long Island Diabetes & Endocrinology">Long Island Diabetes & Endocrinology</option>
+            <option value="Long Island Surgery & Sports Medicine">Long Island Surgery & Sports Medicine</option>
+            <option value="East End Hand Center">East End Hand Center</option>
+            <option value="NAD Medical Services of Peconic Landing">NAD Medical Services of Peconic Landing</option>
+            <option value="Renal Consultants of Long Island">Renal Consultants of Long Island</option>
+            <option value="Long Island Premier Medical Care">Long Island Premier Medical Care</option>
+            <option value="Mid Island Pediatrics (CALMA)">Mid Island Pediatrics (CALMA)</option>
+            <option value="Nassau Suffolk Medical Practice (Bodoutchian)">Nassau Suffolk Medical Practice (Bodoutchian)</option>
+            <option value="North Country Primary Medical Care">North Country Primary Medical Care</option>
+            <option value="North Fork Orthopedic & Sports Medicine">North Fork Orthopedic & Sport Medicine</option>
+            <option value="North Suffolk Cardiology">North Suffolk Cardiology </option>
+            <option value="North Suffolk Medical Care (Dhillon)">North Suffolk Medical Care (Dhillon)</option>
+            <option value="NY Pulmonary Consultants">NY Pulmonary Consultants</option>
+            <option value="Preferred Women's OB/GYN Care, PC">Preferred Women's OB/GYN Care, PC</option>
+            <option value="SB Pediatrics of Sayvile">SB Pediatrics of Sayvile</option>
+            <option value="SH Pediatric Associates">SH Pediatric Associates</option>
+            <option value="Smithtown Women's Health">Smithtown Women's Health</option>
             <option value="Sound Neuroloy">Sound Neuroloy</option>
-            <option value="SouthBay_OBGYN">South Bay OB/GYN</option>
-            <option value="Southold_Family">Southold Family Medicine (Pachter)</option>
-            <option value="Southold_Internal">Southold Internal Medicine (Simon)</option>
-            <option value="SBEC">Stony Brook Endocrine Consultants</option>
-            <option value="SB_Extended Care">Stony Brook Extended Care</option>
-            <option value="Stony Brook OBGYN">Stony Brook OB/GYN</option>
+            <option value="South Bay OB/GYN">South Bay OB/GYN</option>
+            <option value="Southold Family Medicine (Pachter)">Southold Family Medicine (Pachter)</option>
+            <option value="Southold Internal Medicine (Simon)">Southold Internal Medicine (Simon)</option>
+            <option value="Stony Brook Endocrine Consultants">Stony Brook Endocrine Consultants</option>
+            <option value="Stony Brook Extended Care">Stony Brook Extended Care</option>
+            <option value="Stony Brook OB/GYN">Stony Brook OB/GYN</option>
         </select>
-        
         <br><br>
         <label for="note">Note:</label>
         <input type="text" id="note" name="note">
         
         <input type="file" name="fileToUpload[]" id="fileToUpload" multiple>
-        <button type="submit">Generate Plot</button>
+        <button type="submit">Automate Invoice</button>
     </form>
     
 
@@ -102,13 +101,67 @@
 
 
 <h1>Manual Form</h1>
-<form action="/manualUpload" method="POST" enctype="multipart/form-data">
+<form id="myForm" action="/manualUpload" method="POST" enctype="multipart/form-data">
 
     <label for="preparer">Preparer:</label>
-    <input type="text" id="preparer" name="preparer">
+    <input type="text" id="manualPreparer" name="preparer">
     <br>
     <br>
+    <select name="plot_choice1">
+        <option value="SB Administrative Services, LLC">SB Administrative Services, LLC</option>
+        <option value="Stony Brook Community Medical P.C.">Stony Brook Community Medical P.C.</option>
+        <option value="Stony Brook Clinical Network">Stony Brook Clinical Network</option>
+    </select>
 
+    <select name="plot_choice2">
+        <option value="flexible">Flexible</option>
+        <option value="marcum">Marcum</option>
+        <option value="amazon">Amazon</option>
+        <option value="light_path">Light Path</option>
+        <option value="power_it">Power IT</option>
+    </select>
+
+    <select name="plot_choice3">
+        <option value="SB Administrative Services, LLC">SB Administrative Services, LLC</option>
+        <option value="All Inclusive Primary Care">All Inclusive Primary Care</option>
+        <option value="Argen Medical">Argen Medical</option>
+        <option value="Cardiovascular and Lifestyle Medicine">Cardiovascular and Lifestyle Medicine</option>
+        <option value="Dr. Allen Fein">Dr. Allen Fein</option>
+        <option value="Dr. Boglia">Dr. Boglia</option>
+        <option value="Dr. Irwin Schwartz">Dr. Irwin Schwartz</option>
+        <option value="East Moriches Primary Care">East Moriches Primary Care</option>
+        <option value="Heart Associates of Long Island">Heart Associates of Long Island</option>
+        <option value="Hamptons GYN/OB">Hamptons GYN/OB</option>
+        <option value="Island Fertility">Island Fertility</option>
+        <option value="Long Island Allergy & Asthma">Long Island Allergy & Asthma</option>
+        <option value="Long Island Diabetes & Endocrinology">Long Island Diabetes & Endocrinology</option>
+        <option value="Long Island Surgery & Sports Medicine">Long Island Surgery & Sports Medicine</option>
+        <option value="East End Hand Center">East End Hand Center</option>
+        <option value="NAD Medical Services of Peconic Landing">NAD Medical Services of Peconic Landing</option>
+        <option value="Renal Consultants of Long Island">Renal Consultants of Long Island</option>
+        <option value="Long Island Premier Medical Care">Long Island Premier Medical Care</option>
+        <option value="Mid Island Pediatrics (CALMA)">Mid Island Pediatrics (CALMA)</option>
+        <option value="Nassau Suffolk Medical Practice (Bodoutchian)">Nassau Suffolk Medical Practice (Bodoutchian)</option>
+        <option value="North Country Primary Medical Care">North Country Primary Medical Care</option>
+        <option value="North Fork Orthopedic & Sports Medicine">North Fork Orthopedic & Sport Medicine</option>
+        <option value="North Suffolk Cardiology">North Suffolk Cardiology </option>
+        <option value="North Suffolk Medical Care (Dhillon)">North Suffolk Medical Care (Dhillon)</option>
+        <option value="NY Pulmonary Consultants">NY Pulmonary Consultants</option>
+        <option value="Preferred Women's OB/GYN Care, PC">Preferred Women's OB/GYN Care, PC</option>
+        <option value="SB Pediatrics of Sayvile">SB Pediatrics of Sayvile</option>
+        <option value="SH Pediatric Associates">SH Pediatric Associates</option>
+        <option value="Smithtown Women's Health">Smithtown Women's Health</option>
+        <option value="Sound Neuroloy">Sound Neuroloy</option>
+        <option value="South Bay OB/GYN">South Bay OB/GYN</option>
+        <option value="Southold Family Medicine (Pachter)">Southold Family Medicine (Pachter)</option>
+        <option value="Southold Internal Medicine (Simon)">Southold Internal Medicine (Simon)</option>
+        <option value="Stony Brook Endocrine Consultants">Stony Brook Endocrine Consultants</option>
+        <option value="Stony Brook Extended Care">Stony Brook Extended Care</option>
+        <option value="Stony Brook OB/GYN">Stony Brook OB/GYN</option>
+    </select>
+
+    <br>
+    <br>
 
 
     <div id="invoiceForm">
@@ -157,6 +210,32 @@
             $(this).closest('.row').remove();
         });
         });
+
+
+        // must have an input for the preparer fields if submitting a form
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('autoForm');
+            const preparer = document.getElementById('preparer');
+            form.addEventListener('submit', function(event) {
+                if (!preparer.value.trim()) {
+                    event.preventDefault();
+                    alert('Please enter a value for the Preparer field for automation form!');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('myForm');
+            const manualPreparer = document.getElementById('manualPreparer');
+            form.addEventListener('submit', function(event) {
+                if (!manualPreparer.value.trim()) {
+                    event.preventDefault();
+                    alert('Please enter a value for the Preparer field for manual form!');
+                }
+            });
+        });
+
+
+        
     </script>
 </body>
 </html>

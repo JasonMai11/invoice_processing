@@ -102,6 +102,10 @@ def manual_upload():
         price = []
         total = 0
 
+        plot_choice1 = request.form.get('plot_choice1')
+        plot_choice2 = request.form.get('plot_choice2')
+        plot_choice3 = request.form.get('plot_choice3')
+
         # input: if user leaves a Note:
         note = request.form.get('note')
         # input: gets the preparer
@@ -120,7 +124,7 @@ def manual_upload():
             total += float(rows['row['+str(i)+'][priceAmount]'][0])
 
  
-        return render_template('template.html', preparer=preparer, note=note, invoice_date=invoice_date, invoice_number=invoice_number, item=item, gl=gl, price=price, total=total, zip=zip)
+        return render_template('template.html', plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer, note=note, invoice_date=invoice_date, invoice_number=invoice_number, item=item, gl=gl, price=price, total=total, zip=zip)
     else:
         return render_template('index.html')
 

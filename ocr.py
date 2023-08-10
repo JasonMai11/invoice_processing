@@ -34,8 +34,8 @@ def extract_PO_number(text):
             return line[start:]
         
 def flexible_invoice(text):
-    search_words = ['Date:', 'FBS-', 'PO #']
-    dictionary_searchwords_to_text = {'Date:': 'Invoice Date', 'FBS-': 'Invoice Number', 'PO #': 'PO Number'}
+    search_words = ['Date:', 'FBS-', 'PO #', 'Total Tax']
+    dictionary_searchwords_to_text = {'Date:': 'Invoice Date', 'FBS-': 'Invoice Number', 'PO #': 'PO Number', 'Total Tax': 'Tax'}
     price_bool = True 
     visited = set()
     return_dict = {}
@@ -52,6 +52,10 @@ def flexible_invoice(text):
                         return_dict[dictionary_searchwords_to_text[word]] = line[start + 6:]
                     elif word == 'PO #':
                         return_dict[dictionary_searchwords_to_text[word]] = line[start + 5:]
+                    elif word == 'Total Tax':
+                        print("I found the Total Tax")
+                        print(line[len('Total Tax '):])
+                        return_dict[dictionary_searchwords_to_text[word]] = line[len('Total Tax $'): ]
                     else:
                         return_dict[dictionary_searchwords_to_text[word]] = line[start:]
                     visited.add(word)

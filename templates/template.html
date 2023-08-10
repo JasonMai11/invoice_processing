@@ -170,8 +170,8 @@
             <div class="grid-item white-background"></div>
             <div class="grid-item white-background"></div>
             <div class="grid-item white-background"></div>
-            <div class="grid-item white-background"></div>
-            <div class="grid-item white-background">$ {{ total }}</div>
+            <div class="grid-item white-background"><b>Tax: $ {{ tax }}</b></div>
+            <div class="grid-item white-background"><b>$ {{ total_before_tax }}</b></div>
 
             <div class="grid-item white-background"></div>
             <div class="grid-item white-background"></div>
@@ -183,12 +183,16 @@
             </div>
         </div>
 
+
+        <!-- THIS IS TO EDIT IF THE INVOICE -->
         <div class="edit-buttons">
             <!-- Place an edit button for each row here -->
             {% for id, in, p, i, g in zip(invoice_date, invoice_number, price, item, gl) %}
             <button onclick="editRow(this)">Edit</button><br>
             {% endfor %}
         </div>
+
+
 
     </div>
 
@@ -235,7 +239,7 @@
     <br>
     </div>
 
-
+<!--
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>
     <p>GL Code: {{ gl }}</p>
@@ -243,7 +247,7 @@
     <p>Price: {{  price  }}</p>
     <p>Item: {{ item }}</p>
     <p>Total: {{ total }}</p>
-
+-->
 </body>
 
     <script>

@@ -30,6 +30,7 @@ def upload_file():
         print(note)
         invoice_number, invoice_date, po_number, item, price, gl = [], [], [], [], [], []
         total = 0
+        tax = 0
 
 
         file = request.files['fileToUpload[]']
@@ -47,6 +48,8 @@ def upload_file():
                 total += (keyword_dict['Total'])
                 price = price + keyword_dict['Price']
                 gl = gl + keyword_dict['GL']
+                tax = keyword_dict['Tax']
+                
                 print(invoice_number, len(invoice_number))
                 print(item, len(item))
 
@@ -56,12 +59,13 @@ def upload_file():
                     invoice_number.append('')
 
 
-
+        total_before_tax = total
+        total = float(total) + float(tax)
 
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)
 
-        return render_template('template.html', plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer,invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, gl=gl, note=note, zip=zip)
+        return render_template('template.html', total_before_tax=total_before_tax, tax=tax, plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer,invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, gl=gl, note=note, zip=zip)
     else:
         return render_template('index.html')
     
@@ -111,17 +115,28 @@ def manual_upload():
         # input: gets the preparer
         preparer = request.form.get('preparer')
 
-        # Get all unique row indices.
-        indices = len([key for key in rows.keys() if 'date' in key])
+        for i in rows:
+            if i == 'row[date]':
+                invoice_date = rows['row[date]']
+            if i == 'row[number]':
+                invoice_number = rows['row[number]']
+            if i == 'row[memo]':
+                item = rows['row[memo]']
+            if i == 'row[glCode]':
+                gl = rows['row[glCode]']
+            if i == 'row[priceAmount]':
+                price = rows['row[priceAmount]']
 
-        # Iterate over row indices and append to corresponding list.
-        for i in range(indices):
-            invoice_date.append(rows['row['+str(i)+'][date]'][0])
-            invoice_number.append(rows['row['+str(i)+'][number]'][0])
-            item.append(rows['row['+str(i)+'][memo]'][0])
-            gl.append(rows['row['+str(i)+'][glCode]'][0])
-            price.append('$' + rows['row['+str(i)+'][priceAmount]'][0])
-            total += float(rows['row['+str(i)+'][priceAmount]'][0])
+
+        for i in price:
+            total += float(i)
+
+        t = []
+        for i in price:
+            t.append('$ ' + i)
+
+        price = t[:]
+
 
  
         return render_template('template.html', plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer, note=note, invoice_date=invoice_date, invoice_number=invoice_number, item=item, gl=gl, price=price, total=total, zip=zip)

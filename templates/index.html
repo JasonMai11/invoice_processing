@@ -166,12 +166,11 @@
 
     <div id="invoiceForm">
         <div class="row">
-            <input type="date" name="row[0][date]">
-            <input type="text" name="row[0][number]" placeholder="Enter Number">
-            <input type="text" name="row[0][memo]" placeholder="Enter Memo">
-            <input type="text" name="row[0][glCode]" placeholder="Enter GL Code">
-            <input type="number" step="0.01" name="row[0][priceAmount]" placeholder="Enter Price Amount">
-            <button class="deleteRow" type="button">Delete</button>
+            <input type="date" name="row[date]">
+            <input type="text" name="row[number]" placeholder="Enter Number">
+            <input type="text" name="row[memo]" placeholder="Enter Memo">
+            <input type="text" name="row[glCode]" placeholder="Enter GL Code">
+            <input type="number" step="0.01" name="row[priceAmount]" placeholder="Enter Price Amount">
         </div>
     </div>
 
@@ -188,22 +187,20 @@
 </form>
 
     <script>
-        var rowNum = 1;
 
         $(document).ready(function(){
         $("#addRow").click(function(){
             var html = '';
             html += '<div class="row">';
-            html += '<input type="date" name="row['+ rowNum +'][date]">';
-            html += '<input type="text" name="row['+ rowNum +'][number]" placeholder="Enter Number">';
-            html += '<input type="text" name="row['+ rowNum +'][memo]" placeholder="Enter Memo">';
-            html += '<input type="text" name="row['+ rowNum +'][glCode]" placeholder="Enter GL Code">';
-            html += '<input type="number" step="0.01" name="row['+ rowNum +'][priceAmount]" placeholder="Enter Price Amount">';
+            html += '<input type="date" name="row[date]">';
+            html += '<input type="text" name="row[number]" placeholder="Enter Number">';
+            html += '<input type="text" name="row[memo]" placeholder="Enter Memo">';
+            html += '<input type="text" name="row[glCode]" placeholder="Enter GL Code">';
+            html += '<input type="number" step="0.01" name="row[priceAmount]" placeholder="Enter Price Amount">';
             html += '<button class="deleteRow" type="button">Delete</button>';
             html += '</div>';
 
             $('#invoiceForm').append(html);
-            rowNum++;
         });
 
         $(document).on('click', '.deleteRow', function(){

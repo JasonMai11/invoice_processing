@@ -15,29 +15,52 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        
-        # input if user leaves a Note:
-        note = request.form.get('note')
-        print(note)
 
-        # extract file from form data
-        file = request.files['fileToUpload']
-        if file:
-            # Save the file
-            file.save(os.path.join('./invoice', file.filename))
-        
-        keyword_dict = ocr.main() # This is where the magic happens
-        invoice_number = keyword_dict['Invoice Number']
-        invoice_date = keyword_dict['Invoice Date']
-        po_number = keyword_dict['PO Number']
-        item = keyword_dict['Item']
-        total = keyword_dict['Total']
-        price = keyword_dict['Price']
-        gl = keyword_dict['GL']
+        # input if user leaves a Note:
+        plot_choice1 = request.form.get('plot_choice1')
+        plot_choice2 = request.form.get('plot_choice2')
+        plot_choice3 = request.form.get('plot_choice3')
+        note = request.form.get('note')
+        preparer = request.form.get('preparer')
+        print(note)
+        invoice_number, invoice_date, po_number, item, price, gl = [], [], [], [], [], []
+        total = 0
+        tax = 0
+
+
+        file = request.files['fileToUpload[]']
+        # extract files from form data
+        files = request.files.getlist('fileToUpload[]')
+        for file in files:
+            if file and file.filename != '':
+                # Save the file
+                file.save(os.path.join('./invoice', file.filename))
+                keyword_dict = ocr.main() # This is where the magic happens
+                invoice_number = invoice_number + [keyword_dict['Invoice Number']]
+                invoice_date = invoice_date + [keyword_dict['Invoice Date']]
+                po_number = po_number + [keyword_dict['PO Number']]
+                item = item + keyword_dict['Item']
+                total += (keyword_dict['Total'])
+                price = price + keyword_dict['Price']
+                gl = gl + keyword_dict['GL']
+                tax += float(keyword_dict['Tax'])
+
+                while len(invoice_date) != len(item):
+
+                    invoice_date.append('')
+                    invoice_number.append('')
+
+
+        total_before_tax = total
+        total = float(total) + float(tax)
+        tax = f"{tax:.2f}"
+        total_before_tax = f"{total_before_tax:.2f}"
+        total = f"{total:.2f}"
+
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)
 
-        return render_template('template.html',invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, gl=gl, note=note, zip=zip)
+        return render_template('template.html', total_before_tax=total_before_tax, tax=tax, plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer,invoice_date=invoice_date,invoice_number=invoice_number,po_number=po_number,item=item, total=total, price=price, gl=gl, note=note, zip=zip)
     else:
         return render_template('index.html')
     
@@ -53,6 +76,75 @@ def admin():
         items = db.get_item_data()
         return render_template('admin.html', items=items)
 
+
+
+# Uploading Manual Form Code
+
+# I had two approaches, the current approach I went with is 
+# to divide all rows with a row incrementer
+
+# My approach:
+# make them into arrays
+# i.e. date array = [2023-08-20, 2023-07-23]
+#       price array = [...]
+
+@app.route('/manualUpload', methods=['GET', 'POST'])
+def manual_upload():
+    if request.method == 'POST':
+        rows = request.form.to_dict(flat=False)
+
+        # Initialize separate lists for each field.
+        invoice_date = []
+        invoice_number = []
+        item = []
+        gl = []
+        price = []
+        total = 0
+
+        plot_choice1 = request.form.get('plot_choice1')
+        plot_choice2 = request.form.get('plot_choice2')
+        plot_choice3 = request.form.get('plot_choice3')
+
+        # input: if user leaves a Note:
+        note = request.form.get('note')
+        # input: gets the preparer
+        preparer = request.form.get('preparer')
+
+        for i in rows:
+            if i == 'row[date]':
+                invoice_date = rows['row[date]']
+            if i == 'row[number]':
+                invoice_number = rows['row[number]']
+            if i == 'row[memo]':
+                item = rows['row[memo]']
+            if i == 'row[glCode]':
+                gl = rows['row[glCode]']
+            if i == 'row[priceAmount]':
+                price = rows['row[priceAmount]']
+
+
+        for i in price:
+            total += float(i)
+
+        t = []
+        for i in price:
+            t.append('$ ' + i)
+
+        price = t[:]
+
+
+ 
+        return render_template('template.html', plot_choice1=plot_choice1, plot_choice3=plot_choice3, preparer=preparer, note=note, invoice_date=invoice_date, invoice_number=invoice_number, item=item, gl=gl, price=price, total=total, zip=zip)
+    else:
+        return render_template('index.html')
+
+
+
+
+
+
+
+'''
 # Creating routes for the web application
 
 @app.route('/run')
@@ -71,7 +163,7 @@ def index():
 
 @app.route('/view/<string:table_name>')
 def view_table(table_name):
-    """Display the contents of the selected table."""
+    Display the contents of the selected table.
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM {table_name}")
@@ -122,71 +214,5 @@ with open("/mnt/data/employee_database_app.py", "w") as f:
 
 
 
-
-# Uploading Manual Form Code
-
-# I had two approaches, the current approach I went with is 
-# to divide all rows with a row incrementer
-
-# My approach:
-# make them into arrays
-# i.e. date array = [2023-08-20, 2023-07-23]
-#       price array = [...]
-
-@app.route('/manualUpload', methods=['GET', 'POST'])
-def manual_upload():
-    if request.method == 'POST':
-        rows = request.form.to_dict(flat=False)
-
-        # Initialize separate lists for each field.
-        invoice_date = []
-        invoice_number = []
-        item = []
-        gl = []
-        price = []
-        total = 0
-
-        # input: if user leaves a Note:
-        note = request.form.get('note')
-        # input: gets the preparer
-        preparer = request.form.get('preparer')
-
-        # Get all unique row indices.
-        indices = len([key for key in rows.keys() if 'date' in key])
-
-        # Iterate over row indices and append to corresponding list.
-        for i in range(indices):
-            invoice_date.append(rows['row['+str(i)+'][date]'][0])
-            invoice_number.append(rows['row['+str(i)+'][number]'][0])
-            item.append(rows['row['+str(i)+'][memo]'][0])
-            gl.append(rows['row['+str(i)+'][glCode]'][0])
-            price.append('$' + rows['row['+str(i)+'][priceAmount]'][0])
-            total += float(rows['row['+str(i)+'][priceAmount]'][0])
-
- 
-        return render_template('template.html', preparer=preparer, note=note, invoice_date=invoice_date, invoice_number=invoice_number, item=item, gl=gl, price=price, total=total, zip=zip)
-    else:
-        return render_template('index.html')
-
-
-
 """
-@app.route('/manualUpload', methods=['GET', 'POST'])
-def manual_upload():
-    if request.method == 'POST':
-        rows = request.form.to_dict(flat=False)
-        row_data = []
-
-        # Iterate over row data to convert to list of tuples.
-        for i in range(len(rows['row[0][date]'])): # Use any row[] index here.
-            date = rows['row['+str(i)+'][date]'][0]
-            number = rows['row['+str(i)+'][number]'][0]
-            memo = rows['row['+str(i)+'][memo]'][0]
-            glCode = rows['row['+str(i)+'][glCode]'][0]
-            priceAmount = rows['row['+str(i)+'][priceAmount]'][0]
-            row_data.append((date, number, memo, glCode, priceAmount))
-        print(row_data)
-        return render_template('template.html')
-    else:
-        return render_template('index.html')
-"""
+'''

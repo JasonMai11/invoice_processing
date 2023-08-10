@@ -79,6 +79,7 @@
         }
 
         .signature-text {
+            width: auto;
             margin-left: 20%;
             margin-bottom: 5px;
         }
@@ -86,9 +87,8 @@
         .signature-line {
             width: 300px;
             height: 1px;
-            margin-right: 28%;
+            margin-right: 30%;
             margin-bottom: -15px;
-            background-color: black;
         }
 
         .date-container {
@@ -104,10 +104,12 @@
         .date-line {
             width: 80px;
             height: 1px;
-            margin-bottom: -15px;
-            background-color: black;
+            margin-bottom: -7px;
         }
+
+
     </style>
+
 
 </head>
 
@@ -116,12 +118,12 @@
     <h1>Invoice Information</h1>
     <div class="SBAS-Practice">
         <b>
-            Stony Brook Community Medical P.C. <br>
-            Details of Pathways for <br>
-            Sound Neurology
+            {{ plot_choice1 }} <br>
+            {{ plot_choice3 }}
         </b>
         <div>
-            <div class="WP-Reference"><b>W/P Ref</b> 7/7/2023</div>
+            <div class="WP-Reference"><b>W/P Ref</b> <span id="datePlaceholder"></span></div>
+
 
             <div class="Prepared-By">Prepared by: 
                 <b>
@@ -145,72 +147,106 @@
 
     <br>
 
-    <div class="grid-container">
-        <div class="grid-item">Date</div>
-        <div class="grid-item">Number</div>
-        <div class="grid-item">Memo</div>
-        <div class="grid-item">GL Code</div>
-        <div class="grid-item">Amount</div>
-        <div class="grid-item">Invoice Total</div>
+    <div class="main-container">
+        <div class="grid-container">
+            <div class="grid-item">Date</div>
+            <div class="grid-item">Number</div>
+            <div class="grid-item">Memo</div>
+            <div class="grid-item">GL Code</div>
+            <div class="grid-item">Amount</div>
+            <div class="grid-item">Invoice Total</div>
 
 
-        {% for id, in, p, i, g in zip(invoice_date, invoice_number, price, item, gl) %}
-        <div class="grid-item white-background">{{ id }}</div>
-        <div class="grid-item white-background">{{ in }}</div>
-        <div class="grid-item white-background">{{ i }}</div>
-        <div class="grid-item white-background">{{ g }}</div>
-        <div class="grid-item white-background">{{ p }}</div>
-        <div class="grid-item white-background">-</div>
-        {% endfor %}
-    
+            {% for id, in, p, i, g in zip(invoice_date, invoice_number, price, item, gl) %}
+            <div class="grid-item white-background">{{ id }}</div>
+            <div class="grid-item white-background">{{ in }}</div>
+            <div class="grid-item white-background">{{ i }}</div>
+            <div class="grid-item white-background">{{ g }}</div>
+            <div class="grid-item white-background">{{ p }}</div>
+            <div class="grid-item white-background">-</div>
+            {% endfor %}
+        
 
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background">$ {{ total }}</div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            {% if tax %}
+            <div class="grid-item white-background"><b>Tax: $ {{ tax }}</b></div>
+            <div class="grid-item white-background"><b>$ {{ total_before_tax }}</b></div>
+            {% else %}
+            <div class="grid-item white-background"><b></b></div>
+            <div class="grid-item white-background"><b>$ {{ total }}</b></div>    
+            {% endif %}
 
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item white-background"></div>
-        <div class="grid-item last-column">
-            <span>$ {{total}} </span>
-            <span>$ {{total}} </span>
+
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item white-background"></div>
+            <div class="grid-item last-column">
+                <span>$ {{total}} </span>
+                <span>$ {{total}} </span>
+            </div>
         </div>
+
+
+        <!-- THIS IS TO EDIT IF THE INVOICE 
+        <div class="edit-buttons">
+            
+            {% for id, in, p, i, g in zip(invoice_date, invoice_number, price, item, gl) %}
+            <button onclick="editRow(this)">Edit</button><br>
+            {% endfor %}
+        </div>
+        -->
+
+
     </div>
 
     <br>
 
+    {% if note %}
     <div class="note-center">
         <div class="note-container">
             Note: {{ note }}
         </div>
     </div>
+    {% endif %}
     <br>
     <br>
 
     <div class="signature-container">
         <div class="signature-text">IT Approver Signature:</div>
-        <div class="signature-line"></div>
+        <div class="signature-line">────────────────────────</div>
 
         <div class="date-container">
             <div class="date-text">Date:</div>
-            <div class="date-line"></div>
+            <div class="date-line">────────────</div>
         </div>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div class="signature-container">
+        <div class="signature-text">Approved For Payment: </div>
+        <div class="signature-line">────────────────────────</div>
 
+        <div class="date-container">
+            <div class="date-text">Date:</div>
+            <div class="date-line">────────────</div>
+        </div>
+    </div>
 
+    <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
+
+<!--
     <p>Invoice Number: {{ invoice_number }}</p>
     <p>Invoice Date: {{ invoice_date }}</p>
     <p>GL Code: {{ gl }}</p>
@@ -218,7 +254,71 @@
     <p>Price: {{  price  }}</p>
     <p>Item: {{ item }}</p>
     <p>Total: {{ total }}</p>
-
+-->
 </body>
+
+    <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        var year = today.getFullYear();
+
+        document.getElementById('datePlaceholder').textContent = `${month}/${day}/${year}`;
+    });
+
+
+    function editRow(button) {
+      var row = button.parentElement.parentElement;
+      var cells = row.querySelectorAll(".grid-item.white-background");
+      
+      // Making the cells editable
+      cells.forEach(function(cell, index) {
+        if (index < 6) { // Assuming the first 6 cells are editable
+          var input = document.createElement("input");
+          input.type = "text";
+          input.value = cell.textContent.trim();
+          cell.innerHTML = "";
+          cell.appendChild(input);
+        }
+      });
+  
+      // Changing the button to a save button
+      button.textContent = "Save";
+      button.onclick = function() {
+        saveRow(this);
+        location.reload();
+      };
+    }
+  
+    function saveRow(button) {
+      var row = button.parentElement.parentElement;
+      var cells = row.querySelectorAll(".grid-item.white-background input");
+  
+      // Saving the new content to local storage
+      var rowData = [];
+      cells.forEach(function(cellInput) {
+        rowData.push(cellInput.value);
+      });
+      var rowIndex = Array.from(row.parentElement.children).indexOf(row) / 8; // Assuming 8 cells per row including the edit button
+      localStorage.setItem("row-" + rowIndex, JSON.stringify(rowData));
+    }
+  
+    // Load edited content from local storage
+    window.onload = function() {
+      var rows = document.querySelectorAll(".grid-container .grid-item.white-background").length / 8; // Assuming 8 cells per row
+      for (var i = 0; i < rows; i++) {
+        var rowData = JSON.parse(localStorage.getItem("row-" + i));
+        if (rowData) {
+          var row = document.querySelectorAll(".grid-container")[0].children[i * 8];
+          for (var j = 0; j < rowData.length; j++) {
+            row.nextElementSibling.children[0].value = rowData[j];
+            row = row.nextElementSibling;
+          }
+        }
+      }
+    }
+    </script>
 
 </html>

@@ -53,8 +53,6 @@ def flexible_invoice(text):
                     elif word == 'PO #':
                         return_dict[dictionary_searchwords_to_text[word]] = line[start + 5:]
                     elif word == 'Total Tax':
-                        print("I found the Total Tax")
-                        print(line[len('Total Tax '):])
                         return_dict[dictionary_searchwords_to_text[word]] = line[len('Total Tax $'): ]
                     else:
                         return_dict[dictionary_searchwords_to_text[word]] = line[start:]

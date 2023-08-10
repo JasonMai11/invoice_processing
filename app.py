@@ -16,11 +16,6 @@ def home():
 def upload_file():
     if request.method == 'POST':
 
-        print(request.form.get('plot_choice1'))
-        print(request.form.get('plot_choice2'))
-        print(request.form.get('plot_choice3'))
-
-        
         # input if user leaves a Note:
         plot_choice1 = request.form.get('plot_choice1')
         plot_choice2 = request.form.get('plot_choice2')
@@ -48,10 +43,7 @@ def upload_file():
                 total += (keyword_dict['Total'])
                 price = price + keyword_dict['Price']
                 gl = gl + keyword_dict['GL']
-                tax = keyword_dict['Tax']
-                
-                print(invoice_number, len(invoice_number))
-                print(item, len(item))
+                tax += float(keyword_dict['Tax'])
 
                 while len(invoice_date) != len(item):
 
@@ -61,6 +53,9 @@ def upload_file():
 
         total_before_tax = total
         total = float(total) + float(tax)
+        tax = f"{tax:.2f}"
+        total_before_tax = f"{total_before_tax:.2f}"
+        total = f"{total:.2f}"
 
         #move file from invoice folder to archive folder
         os.rename('./invoice/' + file.filename, './archive/' + file.filename)
@@ -145,26 +140,6 @@ def manual_upload():
 
 
 
-"""
-@app.route('/manualUpload', methods=['GET', 'POST'])
-def manual_upload():
-    if request.method == 'POST':
-        rows = request.form.to_dict(flat=False)
-        row_data = []
-
-        # Iterate over row data to convert to list of tuples.
-        for i in range(len(rows['row[0][date]'])): # Use any row[] index here.
-            date = rows['row['+str(i)+'][date]'][0]
-            number = rows['row['+str(i)+'][number]'][0]
-            memo = rows['row['+str(i)+'][memo]'][0]
-            glCode = rows['row['+str(i)+'][glCode]'][0]
-            priceAmount = rows['row['+str(i)+'][priceAmount]'][0]
-            row_data.append((date, number, memo, glCode, priceAmount))
-        print(row_data)
-        return render_template('template.html')
-    else:
-        return render_template('index.html')
-"""
 
 
 

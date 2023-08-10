@@ -122,15 +122,17 @@ def manual_upload():
             if i == 'row[priceAmount]':
                 price = rows['row[priceAmount]']
 
-
+        
         for i in price:
+            print(i)
             total += float(i)
 
         t = []
         for i in price:
-            t.append('$ ' + i)
+            t.append('$ ' + f"{float(i):.2f}" )
 
         price = t[:]
+        total = f"{float(total):.2f}"
 
 
  
